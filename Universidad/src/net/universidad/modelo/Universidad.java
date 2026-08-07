@@ -7,9 +7,9 @@ import java.util.Arrays;
 public class Universidad {
     private Integer id;
     private String nombre;
-    private Double cantidadEstudiantes;
-    private Double cantidadProfesores;
-    private Integer cantidadFacultades;
+    private Short cantidadEstudiantes;
+    private Short cantidadProfesores;
+    private Integer cantidadFacultades; // Integer porque la funcion size() solo retorna dato de tipo Int.
     private ArrayList<String> facultades = new ArrayList<>(Arrays.asList(
         "Ingeniería",
         "Ciencias Básicas",
@@ -17,7 +17,7 @@ public class Universidad {
         "Ciencias de la Salud",
         "Humanidades",
         "Ciencias Empresariales y Económicas"
-    ));
+    )); // Remplazar esto accediendo a los datos de la tabla facultades de la DB 
 
     private Boolean acreditada;
     private Boolean esPublica;
@@ -30,8 +30,8 @@ public class Universidad {
     public Universidad(
             Integer id,
             String nombre,
-            Double cantidadEstudiantes,
-            Double cantidadProfesores,
+            Short cantidadEstudiantes,
+            Short cantidadProfesores,
             Boolean acreditada,
             Boolean esPublica,
             LocalDate fechaFundacion,
@@ -63,6 +63,7 @@ public class Universidad {
     public void crearFacultad(String nombreFacultad) {
         facultades.add(nombreFacultad);
         this.cantidadFacultades++;
+        // insert into facultades(facultad) values (nombreFacultad)
     }
 
     public void infoFacultades() {

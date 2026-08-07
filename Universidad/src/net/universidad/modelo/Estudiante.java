@@ -50,7 +50,7 @@ public class Estudiante {
         this.idFacultad = sc.nextShort();
 
         System.out.print("Rama: ");
-        sc.nextLine(); // limpiar buffer
+        sc.nextLine();
         this.rama = sc.nextLine();
 
         System.out.print("Estado (true = activo, false = inactivo): ");

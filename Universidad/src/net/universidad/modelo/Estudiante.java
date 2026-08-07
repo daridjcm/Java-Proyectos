@@ -1,10 +1,8 @@
 package net.universidad.modelo;
 
-import java.time.LocalDate;
 import java.util.Scanner;
 
 public class Estudiante {
-
     private Integer id;
     private Integer codEstudiantil;
     private Integer cedulaCiudadania;
@@ -19,22 +17,7 @@ public class Estudiante {
     private Boolean estado;
     private String fechaMatricula;
 
-    public void pedirDatos() {
-
-        Universidad unimag = new Universidad(
-            1,
-            "Universidad del Magdalena",
-            28227,
-            1204,
-            6,
-            true,
-            true,
-            LocalDate.of(1958, 10, 27),
-            "Carrera 32 No 22 – 08",
-            "Santa Marta",
-            "Colombia",
-            "www.unimagdalena.edu.co");
-
+    public void pedirDatos(Universidad unimag) {
         Scanner sc = new Scanner(System.in);
 
         System.out.println("===== INGRESO DE DATOS DEL ESTUDIANTE =====");
@@ -53,7 +36,7 @@ public class Estudiante {
 
         System.out.print("Edad: ");
         this.edad = sc.nextShort();
-
+        
         System.out.print("Nombre: ");
         this.nombre = sc.next();
 
@@ -89,7 +72,7 @@ public class Estudiante {
         System.out.println("Nombre: " + nombre);
         System.out.println("Apellido: " + apellido);
         System.out.println("ID Facultad: " + idFacultad);
-        System.out.println("Rama/Carrera: " + rama);
+        System.out.println("Rama: " + rama);
         System.out.println("Estado: " + estado);
         System.out.println("Fecha de matrícula: " + fechaMatricula);
         System.out.println("==========================================");

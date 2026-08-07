@@ -1,0 +1,17 @@
+Hola, quiero que revises esto y verifiques la estructura, esto es lo que me quiere ensenar el profesor de POO, no confio en el.
+
+./
+└── com
+    └── unimag
+        ├── App.java
+        ├── config
+        ├── controlador
+        ├── dto
+        ├── mapeador
+        ├── modelo
+        ├── persistencia
+        ├── repositorio
+        ├── servicio
+        └── vista
+
+12 directories, 1 file

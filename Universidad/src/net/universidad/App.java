@@ -5,7 +5,6 @@ import net.universidad.modelo.Estudiante;
 import net.universidad.modelo.Universidad;
 
 import net.universidad.conexion.ConexionDB;
-import java.sql.Connection;
 
 public class App {
     public static void objetos() {
@@ -30,8 +29,10 @@ public class App {
     }
     
     public static void main(String[] args) {
-        try (Connection connect = ConexionDB.getConexion()) {
+        try {
+            ConexionDB.getConexion().close();
             System.out.println("Conectado correctamente.");
+            objetos();
         } catch (Exception e) {
             e.printStackTrace();
         }

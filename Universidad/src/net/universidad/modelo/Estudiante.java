@@ -5,14 +5,15 @@ import java.util.Scanner;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.Period;
 
 public class Estudiante {
-
     private Integer id;
     private Integer codEstudiantil;
     private Integer cedulaCiudadania;
     private String fechaNacimiento;
-    private Short edad;
+    private Integer edad;
     private String nombre;
     private String apellido;
 
@@ -21,8 +22,9 @@ public class Estudiante {
     private String rama;
     private Boolean estado;
     private String fechaMatricula;
+    private Object universidad;
 
-    public void pedirDatos(Universidad unimag) {
+    public void pedirDatos(Universidad universidad) {
         Scanner sc = new Scanner(System.in);
 
         System.out.println("===== INGRESO DE DATOS DEL ESTUDIANTE =====");
@@ -36,8 +38,7 @@ public class Estudiante {
         System.out.print("Fecha de nacimiento (AAAA-MM-DD): ");
         this.fechaNacimiento = sc.next();
 
-        System.out.print("Edad: ");
-        this.edad = sc.nextShort();
+        this.edad = Period.between(LocalDate.parse(fechaNacimiento), LocalDate.now()).getYears();
 
         System.out.print("Nombre: ");
         this.nombre = sc.next();
@@ -46,8 +47,9 @@ public class Estudiante {
         this.apellido = sc.next();
 
         System.out.println("\n--- LISTA DE FACULTADES ---");
-        unimag.infoFacultades();
-
+        this.universidad = universidad;
+        universidad.infoFacultades();
+        
         System.out.print("ID Facultad: ");
         this.idFacultad = sc.nextShort();
 
@@ -87,7 +89,7 @@ public class Estudiante {
             statement.setInt(1, codEstudiantil);
             statement.setInt(2, cedulaCiudadania);
             statement.setString(3, fechaNacimiento);
-            statement.setShort(4, edad);
+            statement.setInt(4, edad);
             statement.setString(5, nombre);
             statement.setString(6, apellido);
             statement.setShort(7, idFacultad);

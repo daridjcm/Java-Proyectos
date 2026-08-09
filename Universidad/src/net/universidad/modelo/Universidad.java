@@ -1,5 +1,10 @@
 package net.universidad.modelo;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import net.universidad.conexion.ConexionDB;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -53,6 +58,8 @@ public class Universidad {
     }
 
     public void matricularEstudiante() {
+        Estudiante me = new Estudiante();
+        me.pedirDatos(this);
         this.cantidadEstudiantes++;
     }
 
@@ -61,10 +68,28 @@ public class Universidad {
     }
 
     public void crearFacultad(String nombreFacultad) {
-        facultades.add(nombreFacultad);
         this.cantidadFacultades++;
-        // insert into facultades(facultad) values (nombreFacultad)
+        facultades.add(nombreFacultad);
+        guardarDatos(nombreFacultad);
     }
+    
+    
+    public void guardarDatos(String nombreFacultad) {
+        String sql = """
+            INSERT INTO facultades (nombre) VALUES (?)""";
+        try (Connection connection = ConexionDB.getConexion(); 
+            PreparedStatement statement = connection.prepareStatement(sql)) {
+
+            statement.setString(1, nombreFacultad);
+            statement.executeUpdate();
+
+            System.out.println("\n✅ Facultad guardada correctamente en la base de datos.");
+        } catch (SQLException e) {
+            System.out.println("\n❌ Error al guardar la facultad.");
+            e.printStackTrace();
+        }
+    }
+
 
     public void infoFacultades() {
         System.out.println("\n===== FACULTADES =====");

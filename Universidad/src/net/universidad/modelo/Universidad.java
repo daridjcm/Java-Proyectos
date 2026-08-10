@@ -8,13 +8,14 @@ import net.universidad.conexion.ConexionDB;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Scanner;
 
 public class Universidad {
     private Integer id;
     private String nombre;
     private Short cantidadEstudiantes;
     private Short cantidadProfesores;
-    private Integer cantidadFacultades; // Integer porque la funcion size() solo retorna dato de tipo Int.
+    private Integer cantidadFacultades = 0; // Integer porque la funcion size() solo retorna dato de tipo Int.
     private ArrayList<String> facultades = new ArrayList<>(Arrays.asList(
         "Ingeniería",
         "Ciencias Básicas",
@@ -67,32 +68,38 @@ public class Universidad {
         this.cantidadProfesores++;
     }
 
-    public void crearFacultad(String nombreFacultad) {
+    public void crearFacultad() {
+        Scanner sc = new Scanner(System.in);
+        String inputFacu;
+        
+        System.out.print("Nombre de la facultad: ");
+        inputFacu = sc.next();
+        facultades.add(inputFacu);
+        
         this.cantidadFacultades++;
-        facultades.add(nombreFacultad);
-        guardarDatos(nombreFacultad);
+        guardarDatos(inputFacu);
     }
     
     
     public void guardarDatos(String nombreFacultad) {
         String sql = """
-            INSERT INTO facultades (nombre) VALUES (?)""";
+            INSERT INTO facultades (facultad) VALUES (?)""";
         try (Connection connection = ConexionDB.getConexion(); 
             PreparedStatement statement = connection.prepareStatement(sql)) {
 
             statement.setString(1, nombreFacultad);
             statement.executeUpdate();
 
-            System.out.println("\n✅ Facultad guardada correctamente en la base de datos.");
+            System.out.println("Facultad guardada correctamente en la base de datos.");
         } catch (SQLException e) {
-            System.out.println("\n❌ Error al guardar la facultad.");
+            System.out.println("Error al guardar la facultad.");
             e.printStackTrace();
         }
     }
 
 
     public void infoFacultades() {
-        System.out.println("\n===== FACULTADES =====");
+        System.out.println("===== FACULTADES =====");
         for (int i = 1; i <= facultades.size(); i++) {
             System.out.println(i + " - " + facultades.get(i - 1));
         }
@@ -100,7 +107,7 @@ public class Universidad {
         this.cantidadFacultades = facultades.size();
     }
 
-    public void info() {
+    public void infoUniversidad() {
         System.out.println("ID Universidad: " + this.id);
         System.out.println("Nombre: " + this.nombre);
         System.out.println("Cantidad de estudiantes: " + this.cantidadEstudiantes);

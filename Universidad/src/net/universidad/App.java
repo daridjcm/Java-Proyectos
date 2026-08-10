@@ -2,10 +2,11 @@ package net.universidad;
 import net.universidad.modelo.Universidad;
 
 import java.time.LocalDate;
+import java.util.Scanner;
 import net.universidad.conexion.ConexionDB;
 
 public class App {
-    public static void main(String[] args) {
+    public void menu() {
         Universidad unimag = new Universidad(
             1,
             "Universidad del Magdalena",
@@ -19,14 +20,47 @@ public class App {
             "Colombia",
             "www.unimagdalena.edu.co"
         );
-        unimag.matricularEstudiante();
+
+        Scanner scanner = new Scanner(System.in);
+        Integer opcion;
+
+        System.out.println("===== MENU (elegir una opcion) =====");
+        System.out.println("1. Crear facultad");
+        System.out.println("2. Matricular estudiante");
+        System.out.println("3. Listado de facultades");
+        System.out.println("4. Información de la Universidad");
+        System.out.print("Opción: ");
         
+        opcion = scanner.nextInt();
+
+        switch (opcion) {
+            case 1:
+                unimag.crearFacultad();
+                break;
+            case 2:
+                unimag.matricularEstudiante();
+                break;                
+            case 3:
+                unimag.infoFacultades();
+                break;
+            case 4:
+                unimag.infoUniversidad();
+                break;
+            default:
+                System.out.println("La opción ingresada no existe en el menú.");
+                break;
+        }
+    }
+    
+    public static void main(String[] args) {
         try {
             ConexionDB.getConexion().close();
-            System.out.println("Conectado correctamente.");
+            System.out.println("Base de Datos conectado correctamente.");
         } catch (Exception e) {
             e.printStackTrace();
         }
         
+        App app = new App();
+        app.menu();
     }
 }

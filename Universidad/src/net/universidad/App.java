@@ -23,33 +23,38 @@ public class App {
 
         Scanner scanner = new Scanner(System.in);
         Integer opcion;
+       do {
+            System.out.println("===== MENÚ (elegir una opción) =====");
+            System.out.println("1. Crear facultad");
+            System.out.println("2. Matricular estudiante");
+            System.out.println("3. Listado de facultades");
+            System.out.println("4. Información de la Universidad");
+            System.out.println("0. Salir del menú");
 
-        System.out.println("===== MENU (elegir una opcion) =====");
-        System.out.println("1. Crear facultad");
-        System.out.println("2. Matricular estudiante");
-        System.out.println("3. Listado de facultades");
-        System.out.println("4. Información de la Universidad");
-        System.out.print("Opción: ");
-        
-        opcion = scanner.nextInt();
+            System.out.print("Opción: ");
+            opcion = scanner.nextInt();
 
-        switch (opcion) {
-            case 1:
-                unimag.crearFacultad();
-                break;
-            case 2:
-                unimag.matricularEstudiante();
-                break;                
-            case 3:
-                unimag.infoFacultades();
-                break;
-            case 4:
-                unimag.infoUniversidad();
-                break;
-            default:
-                System.out.println("La opción ingresada no existe en el menú.");
-                break;
-        }
+            switch (opcion) {
+                case 1:
+                    unimag.crearFacultad();
+                    break;
+                case 2:
+                    unimag.matricularEstudiante();
+                    break;                
+                case 3:
+                    unimag.infoFacultades();
+                    break;
+                case 4:
+                    unimag.infoUniversidad();
+                    break;
+                case 0:
+                    System.out.println("Saliendo del programa...");
+                    break;
+                default:
+                    System.out.println("La opción ingresada no existe en el menú.");
+                    break;
+            }
+       } while (opcion != 0);
     }
     
     public static void main(String[] args) {

@@ -1,0 +1,9 @@
+{
+  "java.project.sourcePaths": [
+    "src"
+  ],
+  "java.project.referencedLibraries": [
+    "libraries/cleandev-scanner-cli.jar",
+    "libraries/tpa-library-blaster.jar"
+  ]
+}

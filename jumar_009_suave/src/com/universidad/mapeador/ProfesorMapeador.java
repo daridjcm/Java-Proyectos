@@ -17,10 +17,10 @@ public class ProfesorMapeador implements Mapeador<Profesor, ProfesorDto>{
             throw new IllegalArgumentException("profesor requerido");
         }
         return new ProfesorDto(Entidad.getIdProfesor() ,
-                Entidad.getNombreProfesor(),
-                Entidad.getCelularProfesor(),
-                Entidad.getEstadoProfesor(), 
-                Entidad.estaActivo());
+            Entidad.getNombreProfesor(),
+            Entidad.getCelularProfesor(),
+            Entidad.getEstadoProfesor(), 
+            Entidad.estaActivo());
     }
 
     @Override

@@ -1,5 +1,8 @@
 package com.biblioteca.config.modulo;
 
-public class ModuloConfigurable {
-    
+import com.cleandev.cli.core.SystemModule;
+
+public interface ModuloConfigurable {
+    SystemModule construirVista();
+    void cerrarRecursos();
 }

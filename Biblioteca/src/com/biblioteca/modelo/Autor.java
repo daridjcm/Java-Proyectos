@@ -5,6 +5,8 @@ import com.biblioteca.modelo.enumeracion.EstadoEntidad;
 import com.cleandev.tpa.api.annotations.TpaConvert;
 import com.cleandev.tpa.api.annotations.TpaId;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.Locale;
 
 public class Autor {
     @TpaId
@@ -12,10 +14,11 @@ public class Autor {
     private String nombreAutor;
     private String apellidoAutor;
     private String nacionalidadAutor;
-    private LocalDate fechaNacimientoAutor;
+    private String fechaNacimientoAutor;
     @TpaConvert(converter = EstadoEntidadConverter.class)
     private EstadoEntidad estadoAutor;
-    
+    Locale locale = Locale.of("es", "CO");
+
     // Reflexión de otras librerias
     protected Autor() {}
 
@@ -24,12 +27,12 @@ public class Autor {
         this.nombreAutor = nombreAutor;
         this.apellidoAutor = apellidoAutor;
         this.nacionalidadAutor = nacionalidadAutor;
-        this.fechaNacimientoAutor = fechaNacimientoAutor;
+        this.fechaNacimientoAutor = fechaNacimientoAutor.format(DateTimeFormatter.ofPattern("dd/MM/yyyy", this.locale));
         this.estadoAutor = estadoAutor;
     }
 
     // Hidratación
-    public Autor(Long idAutor, String nombreAutor, String apellidoAutor, String nacionalidadAutor, LocalDate fechaNacimientoAutor, EstadoEntidad estadoAutor) {
+    public Autor(Long idAutor, String nombreAutor, String apellidoAutor, String nacionalidadAutor, String fechaNacimientoAutor, EstadoEntidad estadoAutor) {
         this.idAutor = idAutor;
         this.nombreAutor = nombreAutor;
         this.apellidoAutor = apellidoAutor;
@@ -64,7 +67,7 @@ public class Autor {
         this.nacionalidadAutor = nuevaNacionalidad;
     }
     
-    public void actualizarFechaNacimiento(LocalDate nuevaFecha) {
+    public void actualizarFechaNacimiento(String nuevaFecha) {
         if(nuevaFecha.equals(this.fechaNacimientoAutor)) {
             throw new IllegalArgumentException("Las fechas de nacimiento deben ser diferentes");
         }
@@ -96,7 +99,7 @@ public class Autor {
         return nacionalidadAutor;
     }
 
-    public LocalDate getFechaNacimientoAutor() {
+    public String getFechaNacimientoAutor() {
         return fechaNacimientoAutor;
     }
 

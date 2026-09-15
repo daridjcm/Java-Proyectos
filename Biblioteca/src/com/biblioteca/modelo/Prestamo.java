@@ -1,16 +1,17 @@
 package com.biblioteca.modelo;
 
 import com.biblioteca.modelo.enumeracion.EstadoPrestamo;
-import java.time.LocalDate;
+import com.cleandev.tpa.api.annotations.TpaId;
 
 public class Prestamo {
-
+        @TpaId
+      
     private Long idPrestamo;
     private Long idUsuario;
     private Long idLibro;
-    private LocalDate fechaPrestamo;
-    private LocalDate fechaDevolucionEsperada;
-    private LocalDate fechaDevolucionReal;
+    private String fechaPrestamo;
+    private String fechaDevolucionEsperada;
+    private String fechaDevolucionReal;
     private EstadoPrestamo estadoPrestamo;
 
     // Reflexion de otras librerias
@@ -21,8 +22,8 @@ public class Prestamo {
     public Prestamo(
             Long idUsuario,
             Long idLibro,
-            LocalDate fechaPrestamo,
-            LocalDate fechaDevolucionEsperada) {
+            String fechaPrestamo,
+            String fechaDevolucionEsperada) {
 
         if (idUsuario == null) {
             throw new IllegalArgumentException("ID Usuario es obligatorio");
@@ -52,9 +53,9 @@ public class Prestamo {
             Long idPrestamo,
             Long idUsuario,
             Long idLibro,
-            LocalDate fechaPrestamo,
-            LocalDate fechaDevolucionEsperada,
-            LocalDate fechaDevolucionReal,
+            String fechaPrestamo,
+            String fechaDevolucionEsperada,
+            String fechaDevolucionReal,
             EstadoPrestamo estadoPrestamo) {
 
         if (idPrestamo == null) {
@@ -73,7 +74,7 @@ public class Prestamo {
     }
 
     // Registrar devolución
-    public void registrarDevolucion(LocalDate fechaDevolucion) {
+    public void registrarDevolucion(String fechaDevolucion) {
         if (fechaDevolucion == null) {
             throw new IllegalArgumentException("La fecha de devolución es obligatoria");
         }
@@ -112,19 +113,24 @@ public class Prestamo {
         return idLibro;
     }
 
-    public LocalDate getFechaPrestamo() {
+    public String getFechaPrestamo() {
         return fechaPrestamo;
     }
 
-    public LocalDate getFechaDevolucionEsperada() {
+    public String getFechaDevolucionEsperada() {
         return fechaDevolucionEsperada;
     }
 
-    public LocalDate getFechaDevolucionReal() {
+    public String getFechaDevolucionReal() {
         return fechaDevolucionReal;
     }
 
     public EstadoPrestamo getEstadoPrestamo() {
         return estadoPrestamo;
+    }
+
+    // Setters
+    public void setFechaDevolucionReal(String fechaDevolucionReal) {
+        this.fechaDevolucionReal = fechaDevolucionReal;
     }
 }

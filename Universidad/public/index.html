@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Universidad del Magdalena | Gestión</title>
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+    <header>
+      <div class="brand">
+        <div class="logo">U</div>
+        <div>
+          <h1>Universidad del Magdalena</h1>
+          <p>Panel de gestión académica</p>
+        </div>
+      </div>
+      <div class="status" id="connection">● Comprobando conexión…</div>
+    </header>
+    <main>
+      <div class="metrics">
+        <div class="metric">
+          <span>Estudiantes registrados</span
+          ><strong id="studentCount">—</strong>
+        </div>
+        <div class="metric">
+          <span>Facultades registradas</span
+          ><strong id="facultyCount">—</strong>
+        </div>
+        <div class="metric">
+          <span>Estado de datos</span
+          ><strong style="font-size: 20px" id="liveState">Sincronizando</strong>
+        </div>
+      </div>
+      <div class="layout">
+        <section class="panel">
+          <h2>Registrar estudiante</h2>
+          <p class="sub">El registro se guarda en MariaDB.</p>
+          <div id="message" class="message"></div>
+          <form id="studentForm">
+            <div class="grid2">
+              <div class="field">
+                <label for="codigo">Código estudiantil *</label
+                ><input
+                  id="codigo"
+                  name="cod_estudiantil"
+                  type="number"
+                  required
+                />
+              </div>
+              <div class="field">
+                <label for="cedula">Cédula *</label
+                ><input
+                  id="cedula"
+                  name="cedula_ciudadania"
+                  type="number"
+                  required
+                />
+              </div>
+            </div>
+            <div class="grid2">
+              <div class="field">
+                <label for="nombre">Nombre *</label
+                ><input id="nombre" name="nombre" required />
+              </div>
+              <div class="field">
+                <label for="apellido">Apellido *</label
+                ><input id="apellido" name="apellido" required />
+              </div>
+            </div>
+            <div class="grid2">
+              <div class="field">
+                <label for="nacimiento">Fecha de nacimiento *</label
+                ><input
+                  id="nacimiento"
+                  name="fecha_nacimiento"
+                  type="date"
+                  required
+                />
+              </div>
+              <div class="field">
+                <label for="matricula">Fecha de matrícula *</label
+                ><input
+                  id="matricula"
+                  name="fecha_matricula"
+                  type="date"
+                  required
+                />
+              </div>
+            </div>
+            <div class="field">
+              <label for="facultad">Facultad *</label
+              ><select id="facultad" name="id_facultad" required>
+                <option value="">Cargando facultades…</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="rama">Programa / rama *</label
+              ><input
+                id="rama"
+                name="rama"
+                placeholder="Ej. Ingeniería de Sistemas"
+                required
+              />
+            </div>
+            <div class="field">
+              <label for="estado">Estado</label
+              ><select id="estado" name="estado">
+                <option value="true">Activo</option>
+                <option value="false">Inactivo</option>
+              </select>
+            </div>
+            <button class="btn" type="submit">Guardar estudiante</button>
+          </form>
+          <hr
+            style="border: 0; border-top: 1px solid var(--line); margin: 22px 0"
+          />
+          <h2>Crear facultad</h2>
+          <p class="sub">Agrega una facultad al catálogo.</p>
+          <form id="facultyForm">
+            <div class="field">
+              <label for="facultyName">Nombre de la facultad *</label
+              ><input
+                id="facultyName"
+                name="facultad"
+                required
+                placeholder="Ej. Ingeniería"
+              />
+            </div>
+            <button class="btn secondary" type="submit">
+              Agregar facultad
+            </button>
+          </form>
+        </section>
+        <section class="panel">
+          <div class="tablehead">
+            <div>
+              <h2>Base de datos</h2>
+              <p class="sub" style="margin-bottom: 0">
+                Los cambios se consultan automáticamente cada 3 segundos.
+              </p>
+            </div>
+            <input
+              class="search"
+              id="search"
+              placeholder="Buscar en la tabla…"
+            />
+          </div>
+          <div class="tabs">
+            <button class="tab active" data-tab="estudiantes">
+              Estudiantes</button
+            ><button class="tab" data-tab="facultades">Facultades</button>
+          </div>
+          <div class="tablewrap">
+            <table>
+              <thead id="thead"></thead>
+              <tbody id="tbody">
+                <tr>
+                  <td class="empty">Cargando datos…</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <p class="note">
+            <span id="lastUpdate">Esperando primera consulta…</span> ·
+            Actualización automática activa
+          </p>
+        </section>
+      </div>
+    </main>
+    <footer>Panel académico · Interfaz conectada a la API local</footer>
+    <script src="index.js"></script>
+  </body>
+</html>

@@ -95,5 +95,50 @@ public class CursoProfesorMapeador {
         CursoPeriodoDto cursoPeriodoDto = cursoPeriodoMapeador.toDto(cursoPeriodo, materiaCargador, periodoCargador);
         return new CursoProfesorDto(profesorDto, cursoPeriodoDto, miEntidad.getTipoAsignacion(), miEntidad.getEstado(), miEntidad.getFechaAsignacion());
     }
+
+    public CursoProfesorDto toDto(CursoProfesor entidad, ProfesorCargador profesorCargador, CursoPeriodoCargador cursoPeriodoCargador, MateriaCargador materiaCargador, PeriodoAcademicoCargador periodoAcademicoCargador) {
+        if(entidad == null) {
+            throw new IllegalArgumentException("La entidad no puede ser nula");
+        }
+
+        if(profesorCargador == null) {
+            throw new IllegalArgumentException("El cargador de profesores no puede ser nulo");
+        }
+
+        if(cursoPeriodoCargador == null) {
+            throw new IllegalArgumentException("El cargador de periodos no puede ser nulo");
+        }
+
+        if(materiaCargador == null) {
+            throw new IllegalArgumentException("El cargador de materias no puede ser nulo");
+        }
+
+        if(periodoAcademicoCargador == null) {
+            throw new IllegalArgumentException("El cargador de periodos academicos no puede ser nulo");
+        }
+
+        if(!validarIntegridad(entidad, profesorCargador, cursoPeriodoCargador, materiaCargador, periodoAcademicoCargador)) {
+            if (!profesorCargador.existe(entidad.getIdProfesor())) {
+                throw new IllegalStateException("Profesor no encontrado en el cache");
+            }
+
+            if(!cursoPeriodoCargador.existe(entidad.getIdCursoPeriodo())) {
+                throw new IllegalStateException("Curso periodo no encontrado en el cache");
+            }
+
+            CursoPeriodo cursoPeriodo = cursoPeriodoCargador.obtener(entidad.getIdCursoPeriodo()).orElse(null);
+            if(cursoPeriodo != null) {
+                if(!materiaCargador.existe(cursoPeriodo.getIdMateria())) {
+                    throw new IllegalStateException("Materia no encontrada en el cache");
+                }
+
+                if(!periodoAcademicoCargador.existe(cursoPeriodo.getIdPeriodoAcademico())) {
+                    throw new IllegalStateException("Periodo academico no encontrado en el cache");
+                }
+            }
+            throw new IllegalStateException("Error con el curso profesor mapeador");
+        }
+        return transformarADto(entidad, profesorCargador, cursoPeriodoCargador, materiaCargador, periodoAcademicoCargador);
+    }
     
 }

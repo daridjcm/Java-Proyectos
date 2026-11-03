@@ -82,6 +82,16 @@ public class ConfiguracionDependencias implements AutoCloseable {
         // *********************************************************************
         // CursoProfesor tiene Profesor y CursoPeriodo
         // PILAS CursoPeriodo tiene Materia y PeriodoAcademico
+        ConfiguracionModuloCursoProfesor configCursoProfesor = new ConfiguracionModuloCursoProfesor(
+                configProfesor.getProfesorRepositorio(),
+                configProfesor.getProfesorServicio(),
+                configCursoPeriodo.getCursoPeriodoRepositorio(),
+                configCursoPeriodo.getCursoPeriodoServicio(),
+                configMateria.getMateriaRepositorio(),
+                configPeriodo.getPeriodoAcademicoRepositorio()
+        );
+        modulosConfigurados.add(configCursoProfesor);
+        modulos.add(configCursoProfesor.construirVista());
     }
 
     public List<SystemModule> getModulos() {
